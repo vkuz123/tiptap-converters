@@ -281,11 +281,15 @@ The package includes server-safe TipTap extension schemas for custom nodes used 
 import {
   ComponentRefSchema,
   InlineComponentRefSchema,
+  TopicLinkSchema,
   ConditionalBlockSchema,
   VariableTokenSchema,
-  TopicLinkSchema,
   CalloutSchema,
   CodeGroupSchema,
+  DefinitionListSchema,
+  DefinitionItemSchema,
+  DefinitionTermSchema,
+  DefinitionDescriptionSchema,
 } from "tiptap-converters";
 ```
 
