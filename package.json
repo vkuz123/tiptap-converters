@@ -1,0 +1,291 @@
+{
+  "name": "tiptap-converters",
+  "version": "0.1.0",
+  "description": "Bidirectional content converters for TipTap — import from Markdown, HTML, DITA, Confluence, Word, Flare, OpenAPI and export to Markdown, DITA, HTML. Includes a structured authoring pipeline with component resolution, conditional filtering, and variable replacement.",
+  "author": "Vladimir Kuzin",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vkuz123/tiptap-converters.git"
+  },
+  "keywords": [
+    "tiptap",
+    "prosemirror",
+    "converter",
+    "markdown",
+    "html",
+    "dita",
+    "confluence",
+    "word",
+    "docx",
+    "openapi",
+    "flare",
+    "madcap",
+    "import",
+    "export",
+    "structured-authoring",
+    "ccms"
+  ],
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./core": {
+      "import": {
+        "types": "./dist/core/index.d.ts",
+        "default": "./dist/core/index.js"
+      },
+      "require": {
+        "types": "./dist/core/index.d.cts",
+        "default": "./dist/core/index.cjs"
+      }
+    },
+    "./pipeline": {
+      "import": {
+        "types": "./dist/pipeline/index.d.ts",
+        "default": "./dist/pipeline/index.js"
+      },
+      "require": {
+        "types": "./dist/pipeline/index.d.cts",
+        "default": "./dist/pipeline/index.cjs"
+      }
+    },
+    "./import/markdown": {
+      "import": {
+        "types": "./dist/import/markdown.d.ts",
+        "default": "./dist/import/markdown.js"
+      },
+      "require": {
+        "types": "./dist/import/markdown.d.cts",
+        "default": "./dist/import/markdown.cjs"
+      }
+    },
+    "./import/html": {
+      "import": {
+        "types": "./dist/import/html.d.ts",
+        "default": "./dist/import/html.js"
+      },
+      "require": {
+        "types": "./dist/import/html.d.cts",
+        "default": "./dist/import/html.cjs"
+      }
+    },
+    "./import/dita": {
+      "import": {
+        "types": "./dist/import/dita.d.ts",
+        "default": "./dist/import/dita.js"
+      },
+      "require": {
+        "types": "./dist/import/dita.d.cts",
+        "default": "./dist/import/dita.cjs"
+      }
+    },
+    "./import/confluence": {
+      "import": {
+        "types": "./dist/import/confluence.d.ts",
+        "default": "./dist/import/confluence.js"
+      },
+      "require": {
+        "types": "./dist/import/confluence.d.cts",
+        "default": "./dist/import/confluence.cjs"
+      }
+    },
+    "./import/word": {
+      "import": {
+        "types": "./dist/import/word.d.ts",
+        "default": "./dist/import/word.js"
+      },
+      "require": {
+        "types": "./dist/import/word.d.cts",
+        "default": "./dist/import/word.cjs"
+      }
+    },
+    "./import/flare": {
+      "import": {
+        "types": "./dist/import/flare.d.ts",
+        "default": "./dist/import/flare.js"
+      },
+      "require": {
+        "types": "./dist/import/flare.d.cts",
+        "default": "./dist/import/flare.cjs"
+      }
+    },
+    "./import/openapi": {
+      "import": {
+        "types": "./dist/import/openapi.d.ts",
+        "default": "./dist/import/openapi.js"
+      },
+      "require": {
+        "types": "./dist/import/openapi.d.cts",
+        "default": "./dist/import/openapi.cjs"
+      }
+    },
+    "./import/paligo": {
+      "import": {
+        "types": "./dist/import/paligo.d.ts",
+        "default": "./dist/import/paligo.js"
+      },
+      "require": {
+        "types": "./dist/import/paligo.d.cts",
+        "default": "./dist/import/paligo.cjs"
+      }
+    },
+    "./export/markdown": {
+      "import": {
+        "types": "./dist/export/markdown.d.ts",
+        "default": "./dist/export/markdown.js"
+      },
+      "require": {
+        "types": "./dist/export/markdown.d.cts",
+        "default": "./dist/export/markdown.cjs"
+      }
+    },
+    "./export/dita": {
+      "import": {
+        "types": "./dist/export/dita.d.ts",
+        "default": "./dist/export/dita.js"
+      },
+      "require": {
+        "types": "./dist/export/dita.d.cts",
+        "default": "./dist/export/dita.cjs"
+      }
+    },
+    "./export/html": {
+      "import": {
+        "types": "./dist/export/html.d.ts",
+        "default": "./dist/export/html.js"
+      },
+      "require": {
+        "types": "./dist/export/html.d.cts",
+        "default": "./dist/export/html.cjs"
+      }
+    },
+    "./canonical": {
+      "import": {
+        "types": "./dist/canonical.d.ts",
+        "default": "./dist/canonical.js"
+      },
+      "require": {
+        "types": "./dist/canonical.d.cts",
+        "default": "./dist/canonical.cjs"
+      }
+    },
+    "./hdita": {
+      "import": {
+        "types": "./dist/hdita.d.ts",
+        "default": "./dist/hdita.js"
+      },
+      "require": {
+        "types": "./dist/hdita.d.cts",
+        "default": "./dist/hdita.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "@tiptap/core": ">=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "marked": {
+      "optional": true
+    },
+    "cheerio": {
+      "optional": true
+    },
+    "domhandler": {
+      "optional": true
+    },
+    "fast-xml-parser": {
+      "optional": true
+    },
+    "mammoth": {
+      "optional": true
+    },
+    "@apidevtools/swagger-parser": {
+      "optional": true
+    },
+    "js-yaml": {
+      "optional": true
+    },
+    "openapi-types": {
+      "optional": true
+    },
+    "@tiptap/html": {
+      "optional": true
+    },
+    "@tiptap/starter-kit": {
+      "optional": true
+    },
+    "@tiptap/extension-table": {
+      "optional": true
+    },
+    "@tiptap/extension-table-row": {
+      "optional": true
+    },
+    "@tiptap/extension-table-cell": {
+      "optional": true
+    },
+    "@tiptap/extension-table-header": {
+      "optional": true
+    },
+    "@tiptap/extension-image": {
+      "optional": true
+    },
+    "@tiptap/extension-link": {
+      "optional": true
+    },
+    "@tiptap/extension-code-block-lowlight": {
+      "optional": true
+    },
+    "lowlight": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@apidevtools/swagger-parser": "^12.1.0",
+    "@tiptap/core": "^3.24.0",
+    "@tiptap/extension-code-block-lowlight": "^3.24.0",
+    "@tiptap/extension-image": "^3.24.0",
+    "@tiptap/extension-link": "^3.24.0",
+    "@tiptap/extension-table": "^3.24.0",
+    "@tiptap/extension-table-cell": "^3.24.0",
+    "@tiptap/extension-table-header": "^3.24.0",
+    "@tiptap/extension-table-row": "^3.24.0",
+    "@tiptap/html": "^3.24.0",
+    "@tiptap/starter-kit": "^3.24.0",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^25.9.1",
+    "cheerio": "^1.2.0",
+    "fast-xml-parser": "^5.8.0",
+    "js-yaml": "^4.1.1",
+    "lowlight": "^3.3.0",
+    "mammoth": "^1.12.0",
+    "marked": "^18.0.4",
+    "openapi-types": "^12.1.3",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.0",
+    "vitest": "^4.1.7"
+  }
+}

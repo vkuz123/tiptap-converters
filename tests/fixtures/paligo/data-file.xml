@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:export xmlns="http://docbook.org/ns/docbook" xmlns:e="http://ns.expertinfo.se/cms/xmlns/export/1.0" xmlns:xinfo="http://ns.expertinfo.se/cms/xmlns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:t="http://ns.expertinfo.se/translation/xmlns/1.0" instance="aHR0cHM6Ly9mdW5kYW1lZGlhLnBhbGlnb2FwcC5jb20=" date="Sat, 03 Jul 2021 23:40:43 +0200">
+<e:structure>
+<e:publication title="Sample Publication" uuid="UUID-7f1eee4c-f87f-bb72-57d0-33a2b9ceb9d0" id="74245">
+<e:component title="Topic 1 with repeated text" uuid="UUID-6eae2614-c0fe-58a7-8d2d-7a0f4459bc22" id="74246" origin="UUID-2ddf4ce2-3d2b-04cb-eedc-20d92cf534fe" linktype="link">
+<e:text title="Text 74213" uuid="UUID-7c578eb9-48f2-0263-43dc-4ddba847a618" id="74213" linktype="import"/>
+<e:text title="Text 74214" uuid="UUID-a320fdfd-a481-3cbe-e0c8-db1ac8083226" id="74214" linktype="import"/>
+<e:text title="Text 74215" uuid="UUID-f3ff23d8-7113-518b-a217-5287fb722c28" id="74215" linktype="import"/>
+<e:text title="Text 74216" uuid="UUID-f1e5a439-9f50-02ed-91dd-2d4ac2f5435f" id="74216" linktype="import"/>
+<e:text title="Text 74217" uuid="UUID-5d5cb1cc-d81f-0ced-025d-7c6974fa699e" id="74217" linktype="import"/>
+<e:text title="Text 74218" uuid="UUID-d91422e3-b2ec-a99b-b34b-67bbe27d60ad" id="74218" linktype="import"/>
+<e:text title="Text 74219" uuid="UUID-69d2a9a5-5ccb-6db5-b61a-2d51c1623580" id="74219" linktype="import"/>
+</e:component>
+<e:component title="Topic 2 with repeated text" uuid="UUID-ae75aa66-9796-5539-54b5-369a9aa82807" id="74247" origin="UUID-b48f1336-46f6-8e0e-bcc6-7fe114c5cfc8" linktype="link">
+<e:text title="Text 74237" uuid="UUID-ae866285-97a3-7a56-3319-63ebc9e50141" id="74237" linktype="import"/>
+<e:text title="Text 74238" uuid="UUID-87c5308f-b5af-6c12-cef7-12166ba202dc" id="74238" linktype="import"/>
+<e:text title="Text 74239" uuid="UUID-c6d78fd4-f541-1650-66ec-999afe29b440" id="74239" linktype="import"/>
+<e:text title="Text 74240" uuid="UUID-8cb498b0-c150-b392-639a-5808ec8af86e" id="74240" linktype="import"/>
+<e:text title="Text 74241" uuid="UUID-72dd75a0-9cd5-1c7e-a466-6169fc2211d2" id="74241" linktype="import"/>
+<e:text title="Text 74242" uuid="UUID-c901fceb-34f8-1021-fb14-b251c3ae25b6" id="74242" linktype="import"/>
+<e:text title="Text 74243" uuid="UUID-113c18c7-3fa6-d807-f54f-4a8291a72ec0" id="74243" linktype="import"/>
+</e:component>
+</e:publication>
+</e:structure>
+<e:resource id="74245" uuid="UUID-7f1eee4c-f87f-bb72-57d0-33a2b9ceb9d0" type="publication" subtype="">
+<e:content>
+<article xml:id="UUID-7f1eee4c-f87f-bb72-57d0-33a2b9ceb9d0" version="5.0" xml:lang="en" xinfo:resource="UUID-7f1eee4c-f87f-bb72-57d0-33a2b9ceb9d0" xinfo:resource-id="74245" xinfo:resource-type="publication" xinfo:resource-title="Sample Publication" xinfo:resource-titlelabel="" xinfo:version-major="1" xinfo:version-minor="0">
+	<info>
+		<title>Sample Publication</title>
+		<subtitle/>
+		<mediaobject role="titleimage">
+			<imageobject>
+				<imagedata/>
+			</imageobject>
+		</mediaobject>
+        <volumenum xinfo:translate="no">
+<?placeholder Publication ID?>
+</volumenum>
+        <pubdate xinfo:translate="no">
+<?placeholder Publication date?>
+</pubdate>
+		<copyright xinfo:translate="no">
+			<year>
+<?placeholder Year ?>
+</year>
+			<holder>
+<?placeholder Holder?>
+</holder>
+		</copyright>
+		<legalnotice xinfo:translate="no">
+			<para>
+<?placeholder Legal notice text?>
+</para>
+		</legalnotice>
+        <abstract>
+            <para>
+<?placeholder Abstract text?>
+</para>
+        </abstract>
+	</info>
+</article>
+</e:content>
+<e:metadata>
+<e:value name="lang">["en"]</e:value>
+<e:value name="element" dimension-name="document" dimension-value="DOM">"article"</e:value>
+<e:value name="status" dimension-name="document" dimension-value="release">100</e:value>
+<e:value name="ctime">1625347278</e:value>
+</e:metadata>
+</e:resource>
+
+<e:resource id="74213" uuid="UUID-7c578eb9-48f2-0263-43dc-4ddba847a618" type="text" subtype="">
+<e:content lang="en" progress="0" fuzzy="0" progress-ctime="0" words="4">Topic 1 with repeated text
+</e:content>
+</e:resource>
+
+<e:resource id="74214" uuid="UUID-a320fdfd-a481-3cbe-e0c8-db1ac8083226" type="text" subtype="">
+<e:content lang="en" progress="0" fuzzy="0" progress-ctime="0" words="9">Testing changing out repeated text to make it reused:
+</e:content>
+</e:resource>
+
+<e:resource id="74215" uuid="UUID-f3ff23d8-7113-518b-a217-5287fb722c28" type="text" subtype="">
+<e:content lang="en" progress="0" fuzzy="0" progress-ctime="0" words="1">Code
+</e:content>
+</e:resource>
+
+<e:resource id="74216" uuid="UUID-f1e5a439-9f50-02ed-91dd-2d4ac2f5435f" type="text" subtype="">
+<e:content lang="en" progress="0" fuzzy="0" progress-ctime="0" words="1">Description
+</e:content>
+</e:resource>
+<e:resource id="74217" uuid="UUID-5d5cb1cc-d81f-0ced-025d-7c6974fa699e" type="text" subtype="">
+<e:content lang="en" progress="0" fuzzy="0" progress-ctime="0" words="4">Item description goes here
+</e:content>
+</e:resource>
+<e:resource id="74218" uuid="UUID-d91422e3-b2ec-a99b-b34b-67bbe27d60ad" type="text" subtype="">
+<e:content lang="en" progress="0" fuzzy="0" progress-ctime="0" words="2">Something different
+</e:content>
+</e:resource>
+<e:resource id="74219" uuid="UUID-69d2a9a5-5ccb-6db5-b61a-2d51c1623580" type="text" subtype="">
+<e:content lang="en" progress="0" fuzzy="0" progress-ctime="0" words="4">Item description goes here
+</e:content>
+</e:resource>
+<e:resource id="74212" uuid="UUID-2ddf4ce2-3d2b-04cb-eedc-20d92cf534fe" type="component" subtype="">
+<e:content>
+<section xml:id="UUID-2ddf4ce2-3d2b-04cb-eedc-20d92cf534fe" version="5.0" xml:lang="en" xinfo:resource="UUID-2ddf4ce2-3d2b-04cb-eedc-20d92cf534fe" xinfo:resource-id="74212" xinfo:resource-type="component" xinfo:resource-title="Topic 1 with repeated text" xinfo:resource-titlelabel="" xinfo:version-major="1" xinfo:version-minor="0">
+<title xinfo:text="74213"/>
+<para xinfo:text="74214"/>
+<informaltable frame="void" rules="none">
+<thead>
+<tr>
+<th>
+<para xinfo:text="74215"/>
+</th>
+<th>
+<para xinfo:text="74216"/>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<para>123</para>
+</td>
+<td>
+<para xinfo:text="74217"/>
+</td>
+</tr>
+<tr>
+<td>
+<para>456</para>
+</td>
+<td>
+<para xinfo:text="74218"/>
+</td>
+</tr>
+<tr>
+<td>
+<para>876</para>
+</td>
+<td>
+<para xinfo:text="74219"/>
+</td>
+</tr>
+</tbody>
+</informaltable>
+</section>
+</e:content>
+<e:metadata>
+<e:value name="lang">["en"]</e:value>
+<e:value name="element" dimension-name="document" dimension-value="DOM">"section"</e:value>
+<e:value name="status" dimension-name="document" dimension-value="release">100</e:value>
+<e:value name="ctime">1625322759</e:value>
+<e:value name="mtime" dimension-name="lang" dimension-value="en">1625346965</e:value>
+<e:value name="progress" dimension-name="lang" dimension-value="en">0</e:value>
+<e:value name="words" dimension-name="lang" dimension-value="en">25</e:value>
+<e:value name="fuzzy" dimension-name="lang" dimension-value="en">100</e:value>
+<e:value name="progress.ctime" dimension-name="lang" dimension-value="en">0</e:value>
+</e:metadata>
+</e:resource>
+<e:resource id="74237" uuid="UUID-ae866285-97a3-7a56-3319-63ebc9e50141" type="text" subtype="">
+<e:content lang="en" progress="0" fuzzy="0" progress-ctime="0" words="4">Topic 2 with repeated text
+</e:content>
+</e:resource>
+<e:resource id="74238" uuid="UUID-87c5308f-b5af-6c12-cef7-12166ba202dc" type="text" subtype="">
+<e:content lang="en" progress="0" fuzzy="0" progress-ctime="0" words="9">Testing changing out repeated text to make it reused:
+</e:content>
+</e:resource>
+<e:resource id="74239" uuid="UUID-c6d78fd4-f541-1650-66ec-999afe29b440" type="text" subtype="">
+<e:content lang="en" progress="0" fuzzy="0" progress-ctime="0" words="1">Code
+</e:content>
+</e:resource>
+<e:resource id="74240" uuid="UUID-8cb498b0-c150-b392-639a-5808ec8af86e" type="text" subtype="">
+<e:content lang="en" progress="0" fuzzy="0" progress-ctime="0" words="1">Description
+</e:content>
+</e:resource>
+<e:resource id="74241" uuid="UUID-72dd75a0-9cd5-1c7e-a466-6169fc2211d2" type="text" subtype="">
+<e:content lang="en" progress="0" fuzzy="0" progress-ctime="0" words="4">Item description goes here
+</e:content>
+</e:resource>
+<e:resource id="74242" uuid="UUID-c901fceb-34f8-1021-fb14-b251c3ae25b6" type="text" subtype="">
+<e:content lang="en" progress="0" fuzzy="0" progress-ctime="0" words="3">Something else different
+</e:content>
+</e:resource>
+<e:resource id="74243" uuid="UUID-113c18c7-3fa6-d807-f54f-4a8291a72ec0" type="text" subtype="">
+<e:content lang="en" progress="0" fuzzy="0" progress-ctime="0" words="4">Item description goes here
+</e:content>
+</e:resource>
+<e:resource id="74236" uuid="UUID-b48f1336-46f6-8e0e-bcc6-7fe114c5cfc8" type="component" subtype="">
+<e:content>
+<section xml:id="UUID-b48f1336-46f6-8e0e-bcc6-7fe114c5cfc8" version="5.0" xml:lang="en" xinfo:resource="UUID-b48f1336-46f6-8e0e-bcc6-7fe114c5cfc8" xinfo:resource-id="74236" xinfo:resource-type="component" xinfo:resource-title="Topic 2 with repeated text" xinfo:resource-titlelabel="" xinfo:version-major="1" xinfo:version-minor="0">
+<title xinfo:text="74237"/>
+<para xinfo:text="74238"/>
+<informaltable frame="void" rules="none">
+<thead>
+<tr>
+<th>
+<para xinfo:text="74239"/>
+</th>
+<th>
+<para xinfo:text="74240"/>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<para>432</para>
+</td>
+<td>
+<para xinfo:text="74241"/>
+</td>
+</tr>
+<tr>
+<td>
+<para>643</para>
+</td>
+<td>
+<para xinfo:text="74242"/>
+</td>
+</tr>
+<tr>
+<td>
+<para>298</para>
+</td>
+<td>
+<para xinfo:text="74243"/>
+</td>
+</tr>
+</tbody>
+</informaltable>
+</section>
+</e:content>
+<e:metadata>
+<e:value name="lang">["en"]</e:value>
+<e:value name="element" dimension-name="document" dimension-value="DOM">"section"</e:value>
+<e:value name="status" dimension-name="document" dimension-value="release">0</e:value>
+<e:value name="ctime">1625346976</e:value>
+<e:value name="mtime" dimension-name="lang" dimension-value="en">1625347029</e:value>
+<e:value name="progress" dimension-name="lang" dimension-value="en">0</e:value>
+<e:value name="words" dimension-name="lang" dimension-value="en">25</e:value>
+<e:value name="fuzzy" dimension-name="lang" dimension-value="en">100</e:value>
+<e:value name="progress.ctime" dimension-name="lang" dimension-value="en">0</e:value>
+</e:metadata>
+</e:resource>
+<!--Processing time: 0.24441504478455 seconds.-->
+</e:export>
