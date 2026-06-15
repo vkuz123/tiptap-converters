@@ -1,6 +1,6 @@
 # tiptap-converters
 
-Bidirectional content converters for [TipTap](https://tiptap.dev). Import from 7 formats, export to 3, and run a full structured authoring pipeline — all as pure functions with zero framework coupling.
+Bidirectional content converters for [TipTap](https://tiptap.dev). Import from 8 formats, export to 3, run a full structured authoring pipeline, and round-trip through an owned **canonical content model** with lossless **HDITA** (HTML5 + `data-*`) serialization — all as pure functions with zero framework coupling.
 
 ## Format Support
 
@@ -13,6 +13,9 @@ Bidirectional content converters for [TipTap](https://tiptap.dev). Import from 7
 | **Word (.docx)** | `wordToTipTap()` | — | `mammoth` |
 | **MadCap Flare** | `parseFlareProject()` | — | `fast-xml-parser` |
 | **OpenAPI 3.x** | `openapiToTopics()` | — | `@apidevtools/swagger-parser` |
+| **Paligo** (`<e:export>`) | `parsePaligoExport()` | — | `fast-xml-parser` |
+
+Plus a versioned **canonical content model** (`tiptap-converters/canonical`) and lossless **HDITA** serialization (`tiptap-converters/hdita`) — see [Canonical Content Model & HDITA](#canonical-content-model--hdita).
 
 ## Install
 
@@ -40,6 +43,12 @@ npm install mammoth cheerio
 
 # OpenAPI import
 npm install @apidevtools/swagger-parser js-yaml openapi-types
+
+# Paligo import
+npm install fast-xml-parser
+
+# HDITA parse direction (hditaToCanonical)
+npm install cheerio
 ```
 
 ## Quick Start
@@ -127,6 +136,20 @@ import { openapiToTopics } from "tiptap-converters/import/openapi";
 const { overview, topics } = await openapiToTopics(specString, "json");
 ```
 
+### Import Paligo
+
+```ts
+import { parsePaligoExport } from "tiptap-converters/import/paligo";
+
+// Paligo's <e:export> transfer file (the XML the PEF wraps) — NOT the
+// lossy published DocBook. xinfo:text fragment references are resolved.
+const { publicationTitle, topics, components } = parsePaligoExport(xml);
+```
+
+Reuse is **preserved, not flattened**: a text fragment referenced by two or more
+paragraphs becomes a reusable `component`, with a `componentRef` at each use site —
+so a Paligo single-source library imports as components, not duplicated copies.
+
 ## Structured Authoring Pipeline
 
 The pipeline resolves structured authoring constructs in a TipTap document through 4 stages:
@@ -166,6 +189,57 @@ import {
 const resolved = await resolveComponents(doc, fetchComponents);
 const filtered = filterConditions(resolved, { audience: ["admin"] });
 const final = replaceVariables(filtered, { product: "Acme" });
+```
+
+## Canonical Content Model & HDITA
+
+A small, **versioned canonical content model** that you own — independent of TipTap's
+wire JSON. TipTap JSON and HDITA are both serializations of it, so a future TipTap
+reshape becomes a registered migration, not a rewrite of stored content.
+
+```ts
+import {
+  tiptapToCanonical,
+  canonicalToTiptap,
+  collectUnknownTypes,
+  validateCanonical,
+  applyMigrations,
+  CANONICAL_SCHEMA_VERSION,
+} from "tiptap-converters/canonical";
+
+const canonical = tiptapToCanonical(doc); // { schemaVersion, content }
+const back = canonicalToTiptap(canonical); // → TipTap doc
+
+collectUnknownTypes(doc); // node/mark types outside the canonical vocabulary
+validateCanonical(doc);   // structural findings (required attrs, content-model invariants)
+```
+
+`applyMigrations(content, fromVersion, toVersion?, migrations?)` chains version
+upgrades one step at a time — the mechanism that migrates stored content on a
+schema bump (injectable for testing).
+
+### HDITA serialization
+
+HDITA is HTML5 + semantic `data-*` attributes — a **lossless** interchange shape,
+one DITA-OT (`org.lwdita`) hop from normalized DITA:
+
+```ts
+import { canonicalToHdita, hditaToCanonical } from "tiptap-converters/hdita";
+
+const html = canonicalToHdita(canonical); // <article> + data-conref / data-keyref / data-props
+const roundTripped = await hditaToCanonical(html); // lossless round-trip (lazy-loads cheerio)
+```
+
+### Publish-time resolution over the canonical model
+
+```ts
+import { resolveCanonical } from "tiptap-converters/pipeline";
+
+const resolved = await resolveCanonical(canonical, {
+  fetchComponents,
+  conditionProfile: { audience: ["developer"] },
+  variables: { product: "Acme" },
+});
 ```
 
 ## Core Utilities

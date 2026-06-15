@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:export xmlns="http://docbook.org/ns/docbook" xmlns:e="http://ns.expertinfo.se/cms/xmlns/export/1.0" xmlns:xinfo="http://ns.expertinfo.se/cms/xmlns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:t="http://ns.expertinfo.se/translation/xmlns/1.0" instance="aHR0cHM6Ly9mdW5kYW1lZGlhLnBhbGlnb2FwcC5jb20=" date="Sat, 03 Jul 2021 23:40:43 +0200">
+<e:export xmlns="http://docbook.org/ns/docbook" xmlns:e="http://ns.expertinfo.se/cms/xmlns/export/1.0" xmlns:xinfo="http://ns.expertinfo.se/cms/xmlns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:t="http://ns.expertinfo.se/translation/xmlns/1.0" instance="aHR0cHM6Ly9leGFtcGxlLnBhbGlnb2FwcC5jb20=" date="Sat, 03 Jul 2021 23:40:43 +0200">
 <e:structure>
 <e:publication title="Sample Publication" uuid="UUID-7f1eee4c-f87f-bb72-57d0-33a2b9ceb9d0" id="74245">
 <e:component title="Topic 1 with repeated text" uuid="UUID-6eae2614-c0fe-58a7-8d2d-7a0f4459bc22" id="74246" origin="UUID-2ddf4ce2-3d2b-04cb-eedc-20d92cf534fe" linktype="link">
