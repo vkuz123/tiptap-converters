@@ -2,7 +2,7 @@
   "name": "tiptap-converters",
   "version": "0.1.0",
   "description": "Bidirectional content converters for TipTap — import from Markdown, HTML, DITA, Confluence, Word, Flare, OpenAPI and export to Markdown, DITA, HTML. Includes a structured authoring pipeline with component resolution, conditional filtering, and variable replacement.",
-  "author": "Vladimir Kuzin",
+  "author": "Vlad Kuzin",
   "license": "MIT",
   "repository": {
     "type": "git",
