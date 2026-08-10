@@ -310,3 +310,5 @@ import type {
 ## License
 
 MIT
+
+Built by Vlad Kuzin ([topicary.com](https://topicary.com)).
