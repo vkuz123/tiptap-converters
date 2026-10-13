@@ -92,6 +92,21 @@ const xml = renderToDita({
 });
 ```
 
+Reusable components export as DITA conrefs. Components that came from DITA keep their original `conrefPath`. Components authored in the editor need their `content` in the `componentMap`. Write them once into a warehouse topic and conref it from every topic:
+
+```ts
+import { renderComponentWarehouse } from "tiptap-converters/export/dita";
+
+const componentMap = new Map([["c1", { title: "Safety warning", content: componentDoc }]]);
+const warehouse = renderComponentWarehouse([{ id: "c1", title: "Safety warning", content: componentDoc }], { componentMap });
+// write warehouse to _components.dita; list it in the map with processingRole: "resource-only"
+const topic = renderToDita({ id: "install", title: "Install", topicType: "concept", doc,
+  context: { componentMap, componentWarehouse: "_components.dita" } }); // href relative to this topic
+// → <div conref="_components.dita#components/c-c1" />, or <ph conref="…#components/ci-c1" /> inline
+```
+
+Without `componentWarehouse`, component content is written inline. A reference with per-instance `variableOverrides` is always written inline, because a conref would show the shared base values. Pass every component the warehouse refers to, nested ones included. DITA-OT 4.3.4 in strict mode resolves this output without warnings.
+
 ### Import HTML
 
 ```ts

@@ -9,9 +9,20 @@ export interface DitaTopicLinkInfo {
 }
 
 export interface DitaComponentInfo {
+  /** Set for components imported from DITA: the export reuses the original conref. */
   conrefPath?: string;
   title: string;
+  /**
+   * The component body. Components authored natively (no `conrefPath`) need it:
+   * with it they export as a conref into the component warehouse (see
+   * `renderComponentWarehouse`) or, without a warehouse, as inline content.
+   * Without it the export can only leave a placeholder comment.
+   */
+  content?: JSONContent;
 }
+
+/** Topic id of the warehouse topic that `renderComponentWarehouse` writes. */
+export const DITA_COMPONENT_WAREHOUSE_ID = "components";
 
 export interface DitaExportMetadata {
   topicClass?: string;
@@ -30,6 +41,15 @@ export interface DitaContext {
   conditionDimensionMap?: Map<string, string>;
   variableMap?: Map<string, string>;
   metadata?: DitaExportMetadata;
+  /**
+   * Href of the component warehouse file, relative to the topic being
+   * rendered ("" when rendering the warehouse itself). When set, native
+   * components export as `<div conref>` / `<ph conref>` into it; when unset,
+   * their content is written inline.
+   */
+  componentWarehouse?: string;
+  /** Internal: component ids being expanded inline (cycle guard). */
+  componentStack?: string[];
 }
 
 export interface DitaTopicOptions {
@@ -44,6 +64,8 @@ export interface DitaMapEntry {
   href: string;
   navtitle: string;
   role?: string;
+  /** "resource-only" for files that are conref sources, not navigation (the component warehouse). */
+  processingRole?: "resource-only";
   children: DitaMapEntry[];
 }
 
@@ -309,6 +331,18 @@ function blockToDita(
         if (comp?.conrefPath) {
           return `${pad}<ph conref="${escAttr(comp.conrefPath)}" />`;
         }
+        if (comp?.content) {
+          if (ctx.componentWarehouse !== undefined && !hasOverrides(node) && !ctx.componentStack?.includes(componentId)) {
+            return `${pad}<div conref="${escAttr(warehouseConref(ctx.componentWarehouse, blockComponentId(componentId)))}" />`;
+          }
+          const inner = expansionContext(componentId, node, ctx);
+          if (inner) {
+            return (comp.content.content ?? [])
+              .map((child) => blockToDita(child, indent, inner))
+              .filter(Boolean)
+              .join("\n");
+          }
+        }
       }
       return `${pad}<!-- Component: ${componentId ?? "unknown"} -->`;
     }
@@ -494,9 +528,10 @@ function renderTopicRef(item: DitaMapEntry, depth: number): string {
   const hrefAttr = item.href
     ? ` href="${escAttr(item.href)}"`
     : "";
+  const roleAttr = item.processingRole ? ` processing-role="${item.processingRole}"` : "";
 
   if (item.children.length === 0) {
-    return `${pad}<topicref${hrefAttr} navtitle="${escAttr(item.navtitle)}" />`;
+    return `${pad}<topicref${hrefAttr} navtitle="${escAttr(item.navtitle)}"${roleAttr} />`;
   }
 
   const children = item.children
@@ -504,7 +539,7 @@ function renderTopicRef(item: DitaMapEntry, depth: number): string {
     .join("\n");
 
   return [
-    `${pad}<topicref${hrefAttr} navtitle="${escAttr(item.navtitle)}">`,
+    `${pad}<topicref${hrefAttr} navtitle="${escAttr(item.navtitle)}"${roleAttr}>`,
     children,
     `${pad}</topicref>`,
   ].join("\n");
@@ -543,16 +578,17 @@ function renderBookmapItem(item: DitaMapEntry, depth: number): string {
   const tag = role || "topicref";
   const hrefAttr = item.href ? ` href="${escAttr(item.href)}"` : "";
   const navAttr = item.navtitle ? ` navtitle="${escAttr(item.navtitle)}"` : "";
+  const roleAttr = item.processingRole ? ` processing-role="${item.processingRole}"` : "";
 
   if (item.children.length === 0) {
-    return `${pad}<${tag}${hrefAttr}${navAttr} />`;
+    return `${pad}<${tag}${hrefAttr}${navAttr}${roleAttr} />`;
   }
 
   const children = item.children
     .map((child) => renderBookmapItem(child, depth + 1))
     .join("\n");
 
-  return [`${pad}<${tag}${hrefAttr}${navAttr}>`, children, `${pad}</${tag}>`].join("\n");
+  return [`${pad}<${tag}${hrefAttr}${navAttr}${roleAttr}>`, children, `${pad}</${tag}>`].join("\n");
 }
 
 // --- Relationship table rendering ---
@@ -588,6 +624,14 @@ function inlineNode(node: JSONContent, ctx?: DitaContext): string {
       const comp = ctx.componentMap.get(componentId);
       if (comp?.conrefPath) {
         return `<ph conref="${escAttr(comp.conrefPath)}" />`;
+      }
+      const firstBlock = comp?.content ? firstInlineBlock(comp.content) : undefined;
+      if (firstBlock) {
+        if (ctx.componentWarehouse !== undefined && !hasOverrides(node) && !ctx.componentStack?.includes(componentId)) {
+          return `<ph conref="${escAttr(warehouseConref(ctx.componentWarehouse, inlineComponentId(componentId)))}" />`;
+        }
+        const inner = expansionContext(componentId, node, ctx);
+        if (inner) return inlineContent(firstBlock, inner);
       }
     }
     return `<!-- Inline component: ${componentId ?? "unknown"} -->`;
@@ -721,6 +765,87 @@ function renderProlog(metadata: DitaExportMetadata): string {
   if (inner.length === 0) return "";
 
   return ["  <prolog>", ...inner, "  </prolog>"].join("\n");
+}
+
+// --- Component warehouse ---
+
+/**
+ * Renders the conref source for natively authored components: one generic
+ * `<topic id="components">` holding a `<div id="c-…">` per component (block
+ * reuse) and a `<ph id="ci-…">` per component that has inline content (inline
+ * reuse, first block only, matching how inline components render). Write it
+ * into the package, point `DitaContext.componentWarehouse` at it, and add it to
+ * the map as `processingRole: "resource-only"`.
+ */
+export function renderComponentWarehouse(
+  components: Array<{ id: string; title: string; content: JSONContent }>,
+  context?: DitaContext,
+): string {
+  const lines: string[] = [];
+  for (const component of components) {
+    // Refs inside the warehouse point at sibling elements of the same file.
+    const ctx: DitaContext = { ...context, componentWarehouse: "", componentStack: [component.id] };
+    lines.push(`    <div id="${escAttr(blockComponentId(component.id))}" outputclass="component">`);
+    lines.push(`      <!-- ${esc(component.title).replace(/--/g, "- -")} -->`);
+    for (const child of component.content.content ?? []) {
+      const rendered = blockToDita(child, 6, ctx);
+      if (rendered) lines.push(rendered);
+    }
+    lines.push("    </div>");
+    const firstBlock = firstInlineBlock(component.content);
+    if (firstBlock) {
+      lines.push(`    <p><ph id="${escAttr(inlineComponentId(component.id))}">${inlineContent(firstBlock, ctx)}</ph></p>`);
+    }
+  }
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    TOPIC_CONFIG.custom.doctype,
+    `<topic id="${DITA_COMPONENT_WAREHOUSE_ID}">`,
+    "  <title>Reusable components</title>",
+    "  <body>",
+    ...lines,
+    "  </body>",
+    "</topic>",
+    "",
+  ].join("\n");
+}
+
+function blockComponentId(componentId: string): string {
+  return xmlId(`c-${componentId}`);
+}
+
+function inlineComponentId(componentId: string): string {
+  return xmlId(`ci-${componentId}`);
+}
+
+function warehouseConref(href: string, elementId: string): string {
+  return `${href}#${DITA_COMPONENT_WAREHOUSE_ID}/${elementId}`;
+}
+
+function firstInlineBlock(doc: JSONContent): JSONContent | undefined {
+  const first = doc.content?.[0];
+  return first?.content?.length ? first : undefined;
+}
+
+function hasOverrides(node: JSONContent): boolean {
+  const overrides = node.attrs?.variableOverrides as Record<string, unknown> | undefined;
+  return !!overrides && Object.keys(overrides).length > 0;
+}
+
+/**
+ * Context for writing a component's content in place: per-instance variable
+ * overrides apply, nested refs keep using the warehouse, and a component that
+ * is already being expanded returns null (cycle).
+ */
+function expansionContext(componentId: string, node: JSONContent, ctx: DitaContext): DitaContext | null {
+  const stack = ctx.componentStack ?? [];
+  if (stack.includes(componentId)) return null;
+  const overrides = (node.attrs?.variableOverrides ?? {}) as Record<string, unknown>;
+  const variableMap = new Map(ctx.variableMap ?? []);
+  for (const [key, value] of Object.entries(overrides)) {
+    if (typeof value === "string") variableMap.set(key, value);
+  }
+  return { ...ctx, variableMap, componentStack: [...stack, componentId] };
 }
 
 // --- Helpers ---
